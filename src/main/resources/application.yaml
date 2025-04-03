@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ezy_bites-server
+  datasource:
+    url: jdbc:mysql://crossover.proxy.rlwy.net:45149/railway
+    username: root
+    password: UKRiuvyItGemOBtsOOXvEVzcEYVVxwQQ
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /
