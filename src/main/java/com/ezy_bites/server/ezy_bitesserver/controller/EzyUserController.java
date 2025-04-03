@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")  // Allow requests from any origin
 @RestController
 @RequestMapping("api/users")
 public class EzyUserController {
