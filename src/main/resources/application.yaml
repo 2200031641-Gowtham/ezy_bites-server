@@ -5,12 +5,15 @@ spring:
     url: jdbc:mysql://crossover.proxy.rlwy.net:45149/railway
     username: root
     password: UKRiuvyItGemOBtsOOXvEVzcEYVVxwQQ
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+  jta:
+    enabled: true
 
 springdoc:
   api-docs:
