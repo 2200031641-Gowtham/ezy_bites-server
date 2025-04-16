@@ -1,12 +1,14 @@
 package com.ezy_bites.server.ezy_bitesserver.service;
 
-import com.ezy_bites.server.ezy_bitesserver.dto.EzyUserDTO;
+import com.ezy_bites.server.ezy_bitesserver.enums.UserRole;
+import com.ezy_bites.server.ezy_bitesserver.exceptions.ResourceNotFoundException;
 import com.ezy_bites.server.ezy_bitesserver.models.EzyUsers;
 import com.ezy_bites.server.ezy_bitesserver.repo.EzyUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EzyUserServiceImpl implements EzyUserService {
@@ -15,59 +17,44 @@ public class EzyUserServiceImpl implements EzyUserService {
     private EzyUserRepo userRepo;
 
 
+
     @Override
     public List<EzyUsers> getAllUsers() {
-        return userRepo.findAll();
+        return List.of();
     }
 
     @Override
-    public String postUser(EzyUserDTO user) {
-        try{
-            EzyUsers newUser = new EzyUsers();
-            newUser.setUsername(user.getUsername());
-            newUser.setPassword(user.getPassword());
-            newUser.setEmail(user.getEmail());
-            newUser.setName(user.getName());
-            newUser.setPhone(user.getPhone());
-            userRepo.save(newUser);
-            return "success, ID: " + newUser.getId();
-        }catch(Exception e){
-            System.err.println(e.getLocalizedMessage());
-            return "error";
-        }
+    public String postUser(EzyUsers user) {
+        return userRepo.save(user).getEmail();
     }
 
     @Override
     public String deleteUser(Long id) {
-        try{
-            userRepo.deleteById(id);
-            return "success";
-        }catch (Exception e){
-            System.err.println(e.getLocalizedMessage());
-            return "error";
+        if (!userRepo.existsById(id)) {
+            throw new ResourceNotFoundException("User not found with id: " + id);
         }
+        userRepo.deleteById(id);
+        return "User deleted";
     }
 
     @Override
-    public String updateUser(Long id, EzyUserDTO user) {
-        try {
-            EzyUsers existingUser = userRepo.findById(id).orElse(null);
-            if (existingUser == null) {
-                return "User not found";
-            }
-
-            existingUser.setUsername(user.getUsername());
-            existingUser.setPassword(user.getPassword());
-            existingUser.setEmail(user.getEmail());
-            existingUser.setName(user.getName());
-            existingUser.setPhone(user.getPhone());
-
-            userRepo.save(existingUser);
-            return "success";
-        } catch (Exception e) {
-            System.err.println(e.getLocalizedMessage());
-            return "error";
-        }
+    public String updateUser(Long id, EzyUsers user) {
+        EzyUsers existingUser = userRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        existingUser.setEmail(user.getEmail());
+        existingUser.setName(user.getName());
+        existingUser.setProfilePictureUrl(user.getProfilePictureUrl());
+        existingUser.setRole(user.getRole());
+        return userRepo.save(existingUser).getEmail();
     }
 
+    @Override
+    public Optional<EzyUsers> findByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    @Override
+    public List<EzyUsers> findByRole(UserRole role) {
+        return userRepo.findByRole(role);
+    }
 }

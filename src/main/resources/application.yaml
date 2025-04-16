@@ -3,8 +3,10 @@ spring:
     name: ezy_bites-server
   datasource:
     url: jdbc:mysql://crossover.proxy.rlwy.net:45149/railway
+    #    url: jdbc:mysql://localhost:3306/ezy_bites
     username: root
     password: UKRiuvyItGemOBtsOOXvEVzcEYVVxwQQ
+    #    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

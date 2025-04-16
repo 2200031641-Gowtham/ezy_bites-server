@@ -1,25 +1,32 @@
 package com.ezy_bites.server.ezy_bitesserver.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Generated;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.ezy_bites.server.ezy_bitesserver.enums.UserRole;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Table(name = "ezy_users")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class EzyUsers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String password;
-    private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
-    private String phone;
+
+    @Column(nullable = false)
+    private String name;
+
+    private String profilePictureUrl;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role;
 }
