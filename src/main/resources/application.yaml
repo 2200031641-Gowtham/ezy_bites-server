@@ -1,19 +1,23 @@
 spring:
   application:
     name: ezy_bites-server
+
   datasource:
-    url: jdbc:mysql://crossover.proxy.rlwy.net:45149/railway
-    #    url: jdbc:mysql://localhost:3306/ezy_bites
+    #* Railway new
+    url: jdbc:mysql://yamabiko.proxy.rlwy.net:10412/railway
     username: root
-    password: UKRiuvyItGemOBtsOOXvEVzcEYVVxwQQ
-    #    password: 1234
+    password: wxMTNGmdKOtGJDpjqTCYCTxPvxEMeSUu
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+
+
   jta:
     enabled: true
 

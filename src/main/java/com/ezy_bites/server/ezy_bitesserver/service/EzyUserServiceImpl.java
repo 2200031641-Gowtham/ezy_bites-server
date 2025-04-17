@@ -20,7 +20,7 @@ public class EzyUserServiceImpl implements EzyUserService {
 
     @Override
     public List<EzyUsers> getAllUsers() {
-        return List.of();
+        return userRepo.findAll();
     }
 
     @Override

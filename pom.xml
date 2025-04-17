@@ -82,6 +82,11 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-spring-apps-maven-plugin</artifactId>
+                <version>1.18.0</version>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
